@@ -1,8 +1,8 @@
-#include<Windows.h>
+п»ї#include<Windows.h>
 #include"resource.h"
 
-CONST CHAR g_sz_LOGIN_INVITATION[] = "Введите имя пользователя";
-CONST CHAR g_sz_PASSWORD_INVITATION[] = "Введите пароль";
+CONST CHAR g_sz_LOGIN_INVITATION[] = "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ";
+CONST CHAR g_sz_PASSWORD_INVITATION[] = "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ";
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -67,7 +67,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)sz_buffer);
 		}
 		break;
-		case IDOK: MessageBox(hwnd, "Была нажата кнопка OK", "Info", MB_OK | MB_ICONINFORMATION); break;
+		case IDOK: MessageBox(hwnd, "Р‘С‹Р»Р° РЅР°Р¶Р°С‚Р° РєРЅРѕРїРєР° OK", "Info", MB_OK | MB_ICONINFORMATION); break;
 		case IDCANCEL: EndDialog(hwnd, 0);
 		}
 		break;
