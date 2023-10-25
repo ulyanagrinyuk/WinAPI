@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+п»ї#define _CRT_SECURE_NO_WARNINGS
 #include<cstdio>
 #include<Windows.h>
 #include"resource.h"
@@ -32,10 +32,10 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			CONST INT SIZE = 256;
 			CHAR sz_buffer[SIZE] = {};
 			HWND hList = GetDlgItem(hwnd, IDC_LIST1);
-			int i = SendMessage(hList, LB_GETCURSEL, 0, 0);//LB_GETCURSEL Получает индекс текущего выбранного элемента, если таковой имеется, в списке с одним выбором.
-			SendMessage(hList, LB_GETTEXT, i, (LPARAM)sz_buffer);// LB_GETTEXT Возвращает текст элемента списка. Извлекает строку из ящика списка. 
+			int i = SendMessage(hList, LB_GETCURSEL, 0, 0);//LB_GETCURSEL РџРѕР»СѓС‡Р°РµС‚ РёРЅРґРµРєСЃ С‚РµРєСѓС‰РµРіРѕ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°, РµСЃР»Рё С‚Р°РєРѕРІРѕР№ РёРјРµРµС‚СЃСЏ, РІ СЃРїРёСЃРєРµ СЃ РѕРґРЅРёРј РІС‹Р±РѕСЂРѕРј.
+			SendMessage(hList, LB_GETTEXT, i, (LPARAM)sz_buffer);// LB_GETTEXT Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСЃС‚ СЌР»РµРјРµРЅС‚Р° СЃРїРёСЃРєР°. РР·РІР»РµРєР°РµС‚ СЃС‚СЂРѕРєСѓ РёР· СЏС‰РёРєР° СЃРїРёСЃРєР°. 
 			CHAR sz_message[SIZE]{};
-			sprintf(sz_message, "Вы выбрали элемент № %i, сo значением \"%s\"", i, sz_buffer);
+			sprintf(sz_message, "Р’С‹ РІС‹Р±СЂР°Р»Рё СЌР»РµРјРµРЅС‚ в„– %i, СЃo Р·РЅР°С‡РµРЅРёРµРј \"%s\"", i, sz_buffer);
 			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
 		}
 		break;
