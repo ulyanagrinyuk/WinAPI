@@ -33,7 +33,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			CHAR sz_buffer[SIZE] = {};
 			HWND hList = GetDlgItem(hwnd, IDC_LIST1);
 			int i = SendMessage(hList, LB_GETCURSEL, 0, 0);
-			SendMessage(hList, LB_GETTEXT, i, (LPARAM)sz_buffer);
+			SendMessage(hList, LB_GETTEXT, i, (LPARAM)sz_buffer);// LB_GETTEXT извлекает строку из ящика списка, возвращает текст элемента списка
 			CHAR sz_message[SIZE]{};
 			sprintf(sz_message, "Вы выбрали элемент № %i, сo значением \"%s\"", i, sz_buffer);
 			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
