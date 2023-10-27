@@ -18,11 +18,11 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hprevInst, LPSTR lpCmdLine, IN
 	//wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_CPU));
 	//wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_RAM));
 	
-	//wc.hIcon = LoadImage(hInstance, "palm.ico", IMAGE_ICON, LR_DEFAULTSIZE, );
-	//wc.hIcon = LoadImage(hInstance, "palm.ico", IMAGE_ICON, LR_DEFAULTSIZE, );
-	
+	wc.hIcon = (HICON)LoadImage(hInstance, "audio.ico", IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
+	wc.hIcon = (HICON)LoadImage(hInstance, "print.ico", IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = HBRUSH(COLOR_WINDOW + 1);
+
 	wc.hInstance = hInstance;
 	wc.lpfnWndProc = WndProc;
 	wc.lpszMenuName = NULL;
