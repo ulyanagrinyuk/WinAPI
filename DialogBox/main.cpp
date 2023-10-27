@@ -56,7 +56,6 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)g_sz_PASSWORD_INVITATION);
 		}
 		break;
-
 		case IDC_BUTTON_COPY:
 		{
 			CONST INT SIZE = 256;

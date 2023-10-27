@@ -15,8 +15,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hprevInst, LPSTR lpCmdLine, IN
 	wc.cbClsExtra = 0;
 	wc.style = 0;
 
-	wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_CPU));
-	wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_RAM));
+	//wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_CPU));
+	//wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_RAM));
+	
+	//wc.hIcon = LoadImage(hInstance, "palm.ico", IMAGE_ICON, LR_DEFAULTSIZE, );
+	//wc.hIcon = LoadImage(hInstance, "palm.ico", IMAGE_ICON, LR_DEFAULTSIZE, );
+	
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = HBRUSH(COLOR_WINDOW + 1);
 	wc.hInstance = hInstance;
@@ -64,7 +68,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
 	{
-	case WM_CREATE:
+	case WM_CREATE:	
 		break;
 	case WM_COMMAND:
 		break;
@@ -74,3 +78,5 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	return NULL;
 }
+
+
