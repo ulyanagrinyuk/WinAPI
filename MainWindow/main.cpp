@@ -1,5 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<Windows.h>
+#include<string>
+#include<vector>
 #include"resource.h"
 
 #define IDC_COMBO   1001
@@ -8,6 +10,7 @@
 CONST CHAR g_sz_WINDOW_CLASS[] = "My Window Class";
 CONST CHAR* g_CURSOR[] = { "Busy.ani", "Working in Background", "Link Select", "Move.ani"};
 
+std::vector<std::string> LoadCursorsFromDir(const std::string& directory);
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hprevInst, LPSTR lpCmdLine, INT nCmdShow)
@@ -25,7 +28,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hprevInst, LPSTR lpCmdLine, IN
 	
 	wc.hIcon = (HICON)LoadImage(hInstance, "audio.ico", IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
 	wc.hIconSm = (HICON)LoadImage(hInstance, "print.ico", IMAGE_ICON, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
-	wc.hCursor = (HCURSOR)LoadImage(hInstance, "star.ani", IMAGE_CURSOR, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
+	//wc.hCursor = (HCURSOR)LoadImage(hInstance, "star.ani", IMAGE_CURSOR, LR_DEFAULTSIZE, LR_DEFAULTSIZE, LR_LOADFROMFILE);
 	wc.hbrBackground = HBRUSH(COLOR_WINDOW + 1);
 
 	wc.hInstance = hInstance;
@@ -71,6 +74,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hprevInst, LPSTR lpCmdLine, IN
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	static HCURSOR hCursor;
 	switch (uMsg)
 	{
 	case WM_CREATE:
@@ -88,9 +92,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			GetModuleHandle(NULL),
 			NULL
 		);
-		for (int i = 0; i < sizeof(g_CURSOR) / sizeof(g_CURSOR[0]); i++)
+	/*	for (int i = 0; i < sizeof(g_CURSOR) / sizeof(g_CURSOR[0]); i++)
 		{
 			SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)g_CURSOR[i]);
+		}*/
+
+		CHAR sz_cuurent_directory[MAX_PATH]{};
+		GetCurrentDirectory(MAX_PATH, sz_cuurent_directory);
+		MessageBox(hwnd, sz_cuurent_directory, "Current dir", MB_OK );
+		std::vector<std::string> cursors = LoadCursorsFromDir("starcraft-original\\*");
+		for (int i = 0; i < cursors.size(); i++)
+		{
+			SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)cursors[i].c_str());
 		}
 
 		HWND hButton = CreateWindowEx
@@ -111,6 +124,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_COMMAND:
 	{
+		
 		switch (LOWORD(wParam))
 		{
 		case IDC_BUTTON_APPLY:
@@ -122,13 +136,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			SendMessage(hCombo, CB_GETLBTEXT, i, (LPARAM)sz_filename);
 			strcat(sz_filepath, sz_filename);
 			//MessageBox(hwnd, sz_filepath, "Info", MB_OK);
-			HCURSOR hCursor = (HCURSOR)LoadImage(
+			//HCURSOR
+				hCursor = (HCURSOR)LoadImage(
 				GetModuleHandle(NULL),
 				sz_filepath,
 				IMAGE_CURSOR,
 				LR_DEFAULTSIZE, LR_DEFAULTSIZE,
 				LR_LOADFROMFILE);		
-			SetCursor(hCursor);
+			SetClassLong(hwnd, GCL_HCURSOR, (LONG)hCursor);
+			SetClassLong(GetDlgItem(hwnd, IDC_BUTTON_APPLY), GCL_HCURSOR, (LONG)hCursor);
+			SetClassLong(GetDlgItem(hwnd, IDC_COMBO), GCL_HCURSOR, (LONG)hCursor);
+			//SetCursor(hCursor);
+			return FALSE;
 		}
 		break;
 		}
@@ -140,4 +159,34 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	return NULL;
 }
+std::vector<std::string> LoadCursorsFromDir(const std::string& directory)
+{
+	std::vector<std::string> files;
+	WIN32_FIND_DATA data;
+	for (
+		HANDLE hFind = FindFirstFile(directory.c_str(), &data); 
+		
+		 FindNextFile(hFind, &data);
+		)
+	{
+		if(
+			strcmp(strrchr(data.cFileName, '.'), ".ani") == 0 ||
+			strcmp(strrchr(data.cFileName, '.'), ".cur") == 0			
+			)
+			files.push_back(data.cFileName);
+	 }
+
+	/*HANDLE hFile = FindFirstFile(directory.c_str(), &data);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+
+		} while (FindNextFile(hFind, &data));
+	}
+	return files;*/
+
+	return files;
+}
+
 
