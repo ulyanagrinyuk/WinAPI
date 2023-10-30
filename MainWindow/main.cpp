@@ -170,8 +170,8 @@ std::vector<std::string> LoadCursorsFromDir(const std::string& directory)
 		)
 	{
 		if(
-			strcmp(strrchr(data.cFileName, '.'), ".ani") == 0 ||
-			strcmp(strrchr(data.cFileName, '.'), ".cur") == 0			
+			strcmp(strrchr(data.cFileName, '.'), ".cur") == 0	||		
+			strcmp(strrchr(data.cFileName, '.'), ".ani") == 0 
 			)
 			files.push_back(data.cFileName);
 	 }
