@@ -42,18 +42,34 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hprevInst, LPSTR lpCmdLine, IN
 		return 0;
 	}
 
+	INT screen_width = GetSystemMetrics(SM_CXSCREEN);
+	INT screen_height = GetSystemMetrics(SM_CXSCREEN);
+	//CHAR sz_msg[MAX_PATH]{};
+	//sprintf(sz_msg, "Resolution: %ix%i", screen_width, screen_height);
+	//MessageBox(NULL, sz_msg, "Screen resolution", MB_OK);
+	INT window_width = screen_width * 3 / 4;
+	INT window_height = screen_height * 3 / 4;
+
+	INT start_x = screen_width / 8;
+	INT start_y = screen_height / 8;
+
 	HWND hwnd = CreateWindowEx
 	(
 		NULL,
-		g_sz_WINDOW_CLASS, // CLASS NAME
-		g_sz_WINDOW_CLASS,// WINDOW NAME
+		g_sz_WINDOW_CLASS,	//Class name
+		g_sz_WINDOW_CLASS,	//Window name
 		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT,
-		NULL,
+		start_x, start_y,	
+		window_width, window_height,	
+		/*CW_USEDEFAULT, CW_USEDEFAULT,
+		CW_USEDEFAULT, CW_USEDEFAULT,*/
+		NULL,		
 		NULL,
 		hInstance,
 		NULL
+
+	
+
 	);
 	if (hwnd == NULL)
 	{
@@ -84,7 +100,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			NULL,
 			"ComboBox",
 			"",
-			WS_CHILD | WS_VISIBLE | CBN_DROPDOWN,
+			WS_CHILD | WS_VISIBLE | CBN_DROPDOWN | WS_VSCROLL,
 			10, 10,
 			200, 200,
 			hwnd,
@@ -121,6 +137,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		);
 	}
 	break;	
+	case WM_SIZE:
+	case WM_MOVE:
+	{
+		RECT rect;
+		GetWindowRect(hwnd, &rect);
+		CHAR sz_message[MAX_PATH]{};
+		sprintf(sz_message, "%s - Position: %ix%i, %ix%i",
+			g_sz_WINDOW_CLASS, rect.left, rect.top,
+			rect.right-rect.left, rect.bottom-rect.top
+		);
+		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)sz_message);
+	}
 	break;
 	case WM_COMMAND:
 	{
@@ -169,7 +197,8 @@ std::vector<std::string> LoadCursorsFromDir(const std::string& directory)
 		 FindNextFile(hFind, &data);
 		)
 	{
-		if(
+		if
+			(
 			strcmp(strrchr(data.cFileName, '.'), ".cur") == 0	||		
 			strcmp(strrchr(data.cFileName, '.'), ".ani") == 0 
 			)
