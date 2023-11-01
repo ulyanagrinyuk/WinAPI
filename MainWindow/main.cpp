@@ -68,8 +68,6 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hprevInst, LPSTR lpCmdLine, IN
 		hInstance,
 		NULL
 
-	
-
 	);
 	if (hwnd == NULL)
 	{
