@@ -109,10 +109,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		HFONT hFont = CreateFont
 		(
 			DISPLAY_FONT_HEIHGT, DISPLAY_FONT_WIDTH,
-			GM_ADVANCED, 0, 600,	//Escapement, Orientation, Weingh
-			FALSE, FALSE, FALSE,	//Italic - ??????, Underline - ????????????, Strikeout - ?????????????
-			DEFAULT_CHARSET,		//?????????
-			OUT_CHARACTER_PRECIS,	//
+			GM_ADVANCED, 0, 600,	
+			FALSE, FALSE, FALSE,	
+			DEFAULT_CHARSET,		
+			OUT_CHARACTER_PRECIS,	
 			CLIP_CHARACTER_PRECIS,
 			ANTIALIASED_QUALITY,
 			DEFAULT_PITCH | FF_DONTCARE,
@@ -340,12 +340,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 {
 	CONST INT SIZE = 10;
-	CHAR sz_filename[FILENAME_MAX] = {};				//2) ??????? ? ?????????????? ??? ????? ??????
+	CHAR sz_filename[FILENAME_MAX] = {};			
 	for (int i = 0; i < SIZE; i++)
 	{
-		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_0 + i);	//1) ???????? ???? ??????
+		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_0 + i);
 		sprintf(sz_filename, "ButtonsBMP\\square_blue\\button_%i.bmp", i);
-		HBITMAP hBitmap = (HBITMAP)LoadImage	//????????? ???????? ?????? ? ??????
+		HBITMAP hBitmap = (HBITMAP)LoadImage	
 		(
 			GetModuleHandle(NULL),
 			sz_filename,
@@ -353,13 +353,13 @@ VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 			i > 0 ? BUTTON_SIZE : BUTTON_DOUBLE_SIZE, BUTTON_SIZE,
 			LR_LOADFROMFILE
 		);
-		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);	//????????????? ?????? ?? ??????
+		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);	
 	}
 	for (int i = 0; i < sizeof(BUTTON_NAMES) / sizeof(BUTTON_NAMES[0]); i++)
 	{
-		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_POINT + i);	//1) ???????? ???? ??????
+		HWND hButton = GetDlgItem(hwnd, IDC_BUTTON_POINT + i);	
 		sprintf(sz_filename, "ButtonsBMP\\square_blue\\button_%s.bmp", BUTTON_NAMES[i]);
-		HBITMAP hBitmap = (HBITMAP)LoadImage	//????????? ???????? ?????? ? ??????
+		HBITMAP hBitmap = (HBITMAP)LoadImage	
 		(
 			GetModuleHandle(NULL),
 			sz_filename,
@@ -367,7 +367,7 @@ VOID SetSkin(HWND hwnd, CONST CHAR sz_skin[])
 			i > 0 ? BUTTON_SIZE : BUTTON_DOUBLE_SIZE, BUTTON_SIZE,
 			LR_LOADFROMFILE
 		);
-		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);	//????????????? ?????? ?? ??????
+		SendMessage(hButton, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap);	
 	}
 }
 
